@@ -5,6 +5,7 @@ import 'package:gallery/helper/constants.dart';
 import 'package:gallery/presentation/screens/gallery/gallery_screen.dart';
 import 'package:gallery/presentation/widgets/app_button.dart';
 import 'package:gallery/presentation/widgets/custom_text_form_field.dart';
+import 'package:gallery/services/login.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -14,6 +15,9 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlurryContainer(
@@ -37,22 +41,36 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(
             height: screenHeight(context) * .04,
           ),
-          const AppTextFormField(label: 'User Name'),
+          AppTextFormField(
+            label: 'User Name',
+            controller: emailController,
+          ),
           SizedBox(
             height: screenHeight(context) * .04,
           ),
-          const AppTextFormField(label: 'User Name'),
+          AppTextFormField(
+            label: 'password',
+            controller: passwordController,
+          ),
           SizedBox(
             height: screenHeight(context) * .04,
           ),
           AppButton(
               text: 'SUBMIT',
-              function: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const GalleryScreen(),
-                    ));
+              function: () async {
+                try {
+                  await Login().login(
+                      email: emailController.text,
+                      password: passwordController.text);
+                  showSnackBar(context, 'success');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const GalleryScreen(),
+                      ));
+                } catch (e) {
+                  showSnackBar(context, 'Email or password is incorrect');
+                }
               }),
         ],
       ),

@@ -9,3 +9,13 @@ double screenWidth(context) {
 double screenHeight(context) {
   return MediaQuery.of(context).size.height;
 }
+
+
+
+void showSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+    ),
+  );
+}
