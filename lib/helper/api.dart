@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -51,10 +52,10 @@ class Api {
         'Authorization': 'Bearer $token',
       });
     }
-print('/////////////////////////////////////');
+    print('/////////////////////////////////////');
     http.Response response =
         await http.put(Uri.parse(url), body: body, headers: headers);
-print('testestetsetsetstestestetstetetstetsetstetsettsetstetset');
+    print('testestetsetsetstestestetstetetstetsetstetsettsetstetset');
     if (response.statusCode == 200) {
       print(response.statusCode);
       print(response.body);
@@ -63,5 +64,29 @@ print('testestetsetsetstestestetstetetstetsetstetsettsetstetset');
       print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
       throw Exception('error ${response.statusCode}');
     }
+  }
+
+  Future<dynamic> uploadFile({required String url, String? token, required Uint8List file}) async {
+    var request = http.MultipartRequest('Post', Uri.parse(url));
+    Map<String, String> headers = {
+      'Content-Type': 'multipart/form-data'
+    };
+
+    if (token != null) {
+      headers.addAll({
+        'Authorization': 'Bearer $token',
+      });
+    }
+
+    final pic = http.MultipartFile.fromBytes('image', file);
+    request.files.add(pic);
+    request.headers.addAll(headers);
+
+    var response = await request.send();
+    final responseData = await response.stream.toBytes();
+    var result = String.fromCharCodes(responseData);
+    print(result);
+    print(response.statusCode);
+    return result;
   }
 }

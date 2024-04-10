@@ -19,3 +19,5 @@ void showSnackBar(BuildContext context, String message) {
     ),
   );
 }
+
+const baseUrl = 'https://flutter.prominaagency.com/api';

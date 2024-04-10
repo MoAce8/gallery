@@ -6,17 +6,19 @@ class ImageButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.pic,
+    required this.function,
   }) : super(key: key);
 
   final String text;
   final String pic;
+  final VoidCallback function;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
 
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      onPressed: () {},
+      onPressed: function,
       label: Text(
         text,
         style: const TextStyle(

@@ -3,9 +3,9 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:gallery/helper/colors.dart';
 import 'package:gallery/helper/constants.dart';
 import 'package:gallery/presentation/screens/gallery/gallery_screen.dart';
+import 'package:gallery/presentation/screens/login/cubit/login_cubit.dart';
 import 'package:gallery/presentation/widgets/app_button.dart';
 import 'package:gallery/presentation/widgets/custom_text_form_field.dart';
-import 'package:gallery/services/login.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _LoginFormState extends State<LoginForm> {
               text: 'SUBMIT',
               function: () async {
                 try {
-                  await Login().login(
+                  await LoginCubit.get(context).login(
                       email: emailController.text,
                       password: passwordController.text);
                   Navigator.pushReplacement(
