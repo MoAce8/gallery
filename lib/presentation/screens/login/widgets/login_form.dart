@@ -25,7 +25,6 @@ class _LoginFormState extends State<LoginForm> {
           horizontal: screenWidth(context) * .07,
           vertical: screenHeight(context) * .05),
       width: screenWidth(context) * .85,
-      // height: screenHeight(context)*.4,
       color: Colors.white.withOpacity(.3),
       blur: 10,
       borderRadius: BorderRadius.circular(32),
@@ -62,7 +61,6 @@ class _LoginFormState extends State<LoginForm> {
                   await Login().login(
                       email: emailController.text,
                       password: passwordController.text);
-                  showSnackBar(context, 'success');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
