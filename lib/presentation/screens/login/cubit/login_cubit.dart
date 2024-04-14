@@ -11,19 +11,24 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of<LoginCubit>(context);
 
-late final String token;
+  late final String token;
 
-  login({
+  Future<LoginModel> login({
     required String email,
     required String password,
   }) async {
     emit(LoginLoading());
     try {
-     LoginModel data = await LoginServices().login(email: email, password: password);
+      LoginModel data =
+          await LoginServices().login(email: email, password: password);
       token = data.token;
+      emit(LoginSuccess());
+      return data;
     } catch (e) {
       emit(LoginFailed());
       print(e.toString());
+      throw Exception;
     }
+
   }
 }

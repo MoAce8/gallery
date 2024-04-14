@@ -66,11 +66,10 @@ class Api {
     }
   }
 
-  Future<dynamic> uploadFile({required String url, String? token, required Uint8List file}) async {
+  Future<dynamic> uploadFile(
+      {required String url, String? token, required Uint8List file}) async {
     var request = http.MultipartRequest('Post', Uri.parse(url));
-    Map<String, String> headers = {
-      'Content-Type': 'multipart/form-data'
-    };
+    Map<String, String> headers = {'Content-Type': 'multipart/form-data'};
 
     if (token != null) {
       headers.addAll({
@@ -78,7 +77,7 @@ class Api {
       });
     }
 
-    final pic = http.MultipartFile.fromBytes('image', file);
+    final pic = http.MultipartFile.fromBytes('img', file);
     request.files.add(pic);
     request.headers.addAll(headers);
 
