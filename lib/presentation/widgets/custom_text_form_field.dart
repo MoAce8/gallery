@@ -49,10 +49,8 @@ class AppTextFormField extends StatelessWidget {
           focusedErrorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white)),
           contentPadding: const EdgeInsets.all(16),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(22),
-            borderSide: BorderSide.none
-          ),
+          border: buildBorder(),
+          focusedBorder: buildBorder(),
           prefixIcon: prefix,
           suffixIcon: suffix,
           suffixIconColor: Colors.white,
@@ -66,6 +64,13 @@ class AppTextFormField extends StatelessWidget {
         return null;
       },
     );
+  }
+
+  OutlineInputBorder buildBorder() {
+    return OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: BorderSide.none
+        );
   }
 
 

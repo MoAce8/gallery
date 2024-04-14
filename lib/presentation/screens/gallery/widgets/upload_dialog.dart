@@ -31,6 +31,7 @@ class UploadDialog extends StatelessWidget {
                 function: ()async {
                   final image = await pickFromGallery();
                   UploadServices().uploadImage(file: image,context: context);
+                  Navigator.pop(context);
                 }),
             SizedBox(
               height: screenHeight(context) * .06,
@@ -41,6 +42,7 @@ class UploadDialog extends StatelessWidget {
                 function: () async{
                   final image = await pickFromCamera();
                   UploadServices().uploadImage(file: image,context: context);
+                  Navigator.pop(context);
                 }),
           ],
         ),

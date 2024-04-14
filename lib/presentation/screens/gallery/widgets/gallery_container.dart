@@ -1,9 +1,13 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery/helper/colors.dart';
 import 'package:gallery/helper/constants.dart';
+import 'package:gallery/presentation/screens/gallery/cubit/grid_cubit.dart';
+import 'package:gallery/presentation/screens/gallery/cubit/grid_cubit.dart';
 import 'package:gallery/presentation/screens/gallery/widgets/mini_buttons.dart';
 import 'package:gallery/presentation/screens/gallery/widgets/pics_grid.dart';
+import 'package:gallery/presentation/screens/gallery/widgets/pics_grid2.dart';
 
 class GalleryContainer extends StatelessWidget {
   const GalleryContainer({Key? key}) : super(key: key);
@@ -42,7 +46,15 @@ class GalleryContainer extends StatelessWidget {
           SizedBox(
             height: screenHeight(context) * .035,
           ),
-          const PicsGrid(),
+          BlocBuilder<GridCubit, GridState>(
+            builder: (context, state) {
+              if (state is GridOnline) {
+                return const PicsGrid();
+              }else{
+                return const PicsGrid2();
+              }
+            },
+          ),
         ],
       ),
     );
